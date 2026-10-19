@@ -1,7 +1,8 @@
 # Guia Web de Arquitetura de Software e Gestão de Projetos
 
 ## Link para visualização do Website
-[Visualização Eduardo Augusto](https://eduardoamjunior.github.io/Guia-Web-de-Arquitetura-de-Software/)
+[Visualização Eduardo Augusto](https://eduardoamjunior.github.io/Guia-Web-de-Arquitetura-de-Software/);
+
 [Visualização Igor Gerlach](https://gerlachsg.github.io/Guia-Web-de-Arquitetura-de-Software/)
 
 ## Identificação
