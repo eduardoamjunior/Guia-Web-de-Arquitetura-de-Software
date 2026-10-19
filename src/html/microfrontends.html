@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Micro Frontends - Guia de Arquitetura</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="microfrontends">
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">ArchGuide<span>.GP</span></a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav_home">Início</a>
+        <a href="prerequisites.html" data-i18n="nav_post1">1. Pré-requisitos MS</a>
+        <a href="microfrontends.html" class="active" data-i18n="nav_post2">2. Micro Frontends</a>
+        <a href="gui-archs.html" data-i18n="nav_post3">3. Arquiteturas GUI</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn-outline" id="langToggle" onclick="toggleLanguage()">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <span class="tag tag-green">Eixo 2 • Fronteiras e Evolução</span>
+      <h1>Micro Frontends</h1>
+      <p class="subtitle">Aplicações frontend entregáveis de forma independente e compostas em um produto único.</p>
+      <div class="header-actions">
+        <a href="https://martinfowler.com/articles/micro-frontends.html" target="_blank" rel="noopener noreferrer" class="btn-primary">Ler Post Original (Cam Jackson)</a>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2>Resumo da Ideia Central</h2>
+      <p>Enquanto muitas empresas adotaram microsserviços para escalar o desenvolvimento backend, seus frontends permaneceram como grandes monólitos difíceis de manter e evoluir. O artigo define <strong>Micro Frontends</strong> como um estilo arquitetural em que aplicações frontend entregáveis de maneira independente são compostas em um todo maior e coeso.</p>
+      <p class="mt-1">Na prática, uma aplicação <strong>Container</strong> gerencia elementos comuns (cabeçalho, navegação, autenticação) e orquestra a exibição dos Micro Frontends específicos de cada página ou domínio funcional (ex.: busca de restaurantes, página de pedido, perfil do cliente). A integração pode ocorrer via composição de templates no servidor (SSI), integração em tempo de build (pacotes npm) ou integração em tempo de execução no navegador (iframes, JavaScript ou Web Components).</p>
+      <div class="interactive-panel mt-1">
+        <p><strong>Como a composição muda a gestão:</strong> cada abordagem de integração altera o grau de independência, isolamento e governança entre as equipes.</p>
+        <button class="btn-secondary" onclick="openModal('modal-mfe-integracao')">Comparar abordagens de integração</button>
+      </div>
+    </section>
+
+    <section class="section grid-2">
+      <div class="content-box border-green">
+        <h2>Vantagens</h2>
+        <ul class="styled-list">
+          <li><strong>Atualizações incrementais:</strong> Permite modernizar ou substituir um monólito legado peça por peça (Strangler Fig), evitando o risco de uma reescrita total.</li>
+          <li><strong>Bases de código simples e desacopladas:</strong> Repositórios menores reduzem o acoplamento acidental entre contextos de negócio distintos.</li>
+          <li><strong>Deploy independente:</strong> Cada micro frontend possui seu próprio pipeline de CI/CD, reduzindo o escopo e o risco de cada publicação em produção.</li>
+          <li><strong>Equipes autônomas e verticais:</strong> Squads assumem responsabilidade de ponta a ponta (do banco à interface) sobre uma fatia vertical de negócio.</li>
+        </ul>
+      </div>
+
+      <div class="content-box border-red">
+        <h2>Desvantagens</h2>
+        <ul class="styled-list">
+          <li><strong>Aumento do tamanho do payload:</strong> Risco de duplicação de dependências e frameworks JavaScript baixados pelo navegador do usuário.</li>
+          <li><strong>Diferenças entre ambientes:</strong> Desenvolver um micro frontend isoladamente fora do container pode ocultar conflitos de CSS ou roteamento que só surgem em integração.</li>
+          <li><strong>Complexidade operacional e de governança:</strong> Multiplicação de repositórios, pipelines e necessidade de alinhamento constante para evitar fragmentação visual da interface.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2>Aplicação na EAP e no Kanban</h2>
+      <p>O frontend pode ser decomposto por domínio de negócio, com limites de responsabilidade e WIP definidos para cada squad. A visualização abaixo detalha como essa decomposição afeta o planejamento.</p>
+      <button class="btn-outline" onclick="openModal('modal-mfe-kanban')">Ver fluxo contextual da equipe</button>
+    </section>
+
+    <section class="section content-box">
+      <h2>Impacto na Gestão do Projeto</h2>
+      <div class="grid-2 mt-1">
+        <div class="mini-card">
+          <h4>Prazo (Cronograma e Paralelismo)</h4>
+          <p>Permite paralelismo real no Gráfico de Gantt: diferentes equipes desenvolvem e entregam páginas complexas simultaneamente sem bloqueios de merge no mesmo repositório, melhorando a Velocity nas sprints.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Custo (Orçamento e Recursos)</h4>
+          <p>Eleva o custo de estruturação inicial (criação do Container, pipelines múltiplos e biblioteca de Design System compartilhada), mas reduz o custo de manutenção evolutiva em produtos de grande porte.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Equipe (Lei de Conway e Ágil)</h4>
+          <p>Alinha a arquitetura à estrutura organizacional: substitui divisões horizontais (time de CSS, time de API) por equipes multifuncionais focadas na jornada do cliente, reduzindo itens bloqueados no Kanban.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Riscos (ISO 31000)</h4>
+          <p><strong>Estrutura Causa → Evento → Impacto:</strong> Devido à falta de governança sobre dependências e estilos compartilhados entre os micro frontends (causa), ocorre carregamento duplicado de bibliotecas e vazamento de regras CSS (evento), degradando o tempo de carregamento e quebrando o layout em produção (impacto).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modal-mfe-integracao">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Abordagens de Integração de Micro Frontends</h3>
+        <button class="modal-close" onclick="closeModal('modal-mfe-integracao')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="sim-controls">
+          <button class="btn-outline" onclick="showMfeApproach('build')">Build-time (NPM)</button>
+          <button class="btn-outline" onclick="showMfeApproach('iframe')">Run-time (iframes)</button>
+          <button class="btn-outline" onclick="showMfeApproach('js')">Run-time (JS / Web Components)</button>
+        </div>
+        <div id="mfe-approach-box" class="sim-box mt-1">
+          <p>Selecione uma abordagem acima para analisar seus trade-offs técnicos e de gestão.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-mfe-kanban">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Decomposição na EAP e Fluxo Kanban • Eixo 2</h3>
+        <button class="modal-close" onclick="closeModal('modal-mfe-kanban')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Impacto na EAP (Regra dos 100%):</strong> O ramo de Frontend deixa de ser um pacote monolítico e passa a ser decomposto por domínio de negócio (3.2.1 Container App, 3.2.2 MFE Catálogo, 3.2.3 MFE Checkout).</p>
+        <p class="mt-1"><strong>Impacto no WIP (Kanban):</strong> Cada squad controla seu próprio limite de Work In Progress sem travar a coluna de deploy das demais equipes.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Guia Web de Arquitetura de Software • Gestão de Projetos • SENAI Félix Guisard (2026)</p>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Web de Arquitetura de Software - Gestão de Projetos</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="home">
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">Eduardo&<span>Igor</span></a>
+      <nav class="nav-links">
+        <a href="index.html" class="active" data-i18n="nav_home">Início</a>
+        <a href="prerequisites.html" data-i18n="nav_post1">1. Pré-requisitos MS</a>
+        <a href="microfrontends.html" data-i18n="nav_post2">2. Micro Frontends</a>
+        <a href="gui-archs.html" data-i18n="nav_post3">3. Arquiteturas GUI</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn-outline" id="langToggle" onclick="toggleLanguage()">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 data-i18n="hero_title">Guia Web de Arquitetura de Software e Impacto na Gestão</h1>
+      <p data-i18n="hero_desc">Análise técnica de três padrões arquiteturais de Martin Fowler e seus desdobramentos diretos em escopo (EAP), cronograma (Gantt/Caminho Crítico), custos (EVM), equipes (Scrum/Kanban) e riscos (ISO 31000).</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title" data-i18n="axes_title">Eixos Arquiteturais Selecionados</h2>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-header">
+            <span class="tag tag-blue" data-i18n="axis_1">Eixo 1 • Microsserviços</span>
+            <h3>Microservice Prerequisites</h3>
+          </div>
+          <p data-i18n="card1_desc">Competências operacionais obrigatórias antes de decompor um sistema em microsserviços: provisionamento rápido, monitoramento básico e deploy automatizado.</p>
+          <div class="card-footer">
+            <a href="prerequisites.html" class="btn-primary" data-i18n="btn_read">Acessar Página</a>
+            <button class="btn-outline" onclick="openModal('modal-preview-1')" data-i18n="btn_quick">Abrir resumo contextual</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="tag tag-green" data-i18n="axis_2">Eixo 2 • Fronteiras e Evolução</span>
+            <h3>Micro Frontends</h3>
+          </div>
+          <p data-i18n="card2_desc">Decomposição de monólitos frontend em aplicações menores, desenvolvidas, testadas e implantadas de forma independente por equipes autônomas.</p>
+          <div class="card-footer">
+            <a href="microfrontends.html" class="btn-primary" data-i18n="btn_read">Acessar Página</a>
+            <button class="btn-outline" onclick="openModal('modal-preview-2')" data-i18n="btn_quick">Abrir resumo contextual</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="tag tag-purple" data-i18n="axis_3">Eixo 3 • Camadas e Execução</span>
+            <h3>GUI Architectures</h3>
+          </div>
+          <p data-i18n="card3_desc">Evolução das arquiteturas de interface gráfica: Forms and Controls, Model-View-Controller (MVC), Application Model e Model-View-Presenter (MVP).</p>
+          <div class="card-footer">
+            <a href="gui-archs.html" class="btn-primary" data-i18n="btn_read">Acessar Página</a>
+            <button class="btn-outline" onclick="openModal('modal-preview-3')" data-i18n="btn_quick">Abrir resumo contextual</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2 class="section-title">Como as decisões arquiteturais pressionam o projeto</h2>
+      <p>A Restrição Tripla relaciona escopo, tempo e custo. Neste guia, qualidade e risco aparecem como efeitos das decisões arquiteturais. O simulador abaixo é uma demonstração didática: os valores de SPI e CPI são exemplos criados para comparar cenários, não dados retirados dos posts originais.</p>
+      <div class="interactive-panel">
+        <p><strong>Escolha um cenário para comparar:</strong> microsserviços sem base operacional, Micro Frontends com equipes em paralelo ou MVC/MVP com domínio separado.</p>
+      </div>
+    </section>
+
+    <section class="section info-panel">
+      <div class="grid-2">
+        <div>
+          <h3 data-i18n="ident_title">Identificação Acadêmica</h3>
+          <ul class="clean-list">
+            <li><strong data-i18n="lbl_course">Curso:</strong> <span data-i18n="val_course">Superior de Tecnologia em Análise e Desenvolvimento de Sistemas (4º semestre)</span></li>
+            <li><strong data-i18n="lbl_uc">Unidade Curricular:</strong> <span data-i18n="val_uc">Gestão de Projetos</span></li>
+            <li><strong data-i18n="lbl_prof">Docente:</strong> Prof. Wesley Fioreze</li>
+          </ul>
+        </div>
+        <div>
+          <h3 data-i18n="team_title">Integrantes da Equipe</h3>
+          <ul class="clean-list">
+            <li>Eduardo Augusto Miranda Junior</li>
+            <li>Igor Costa Gerlach</li>
+          </ul>
+        </div>
+        <div class="interactive-panel">
+          <p><strong>Sobre esta entrega:</strong> a ficha técnica reúne instituição, disciplina, normas de referência e identificação do projeto.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modal-identificacao">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 data-i18n="modal_id_title">Ficha Técnica do Projeto</h3>
+        <button class="modal-close" onclick="closeModal('modal-identificacao')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong data-i18n="lbl_inst">Instituição:</strong> Faculdade de Tecnologia SENAI "Félix Guisard" - Taubaté/SP</p>
+        <p><strong data-i18n="lbl_course">Curso:</strong> Tecnologia em Análise e Desenvolvimento de Sistemas - 4º Semestre</p>
+        <p><strong data-i18n="lbl_uc">Disciplina:</strong> Gestão de Projetos (Prof. Wesley Fioreze)</p>
+        <p><strong>Normas de Referência:</strong> PMBOK 7ª Ed. (PMI), ISO/IEC/IEEE 42010:2022, ISO/IEC 9126 e ISO 31000.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-tripla">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 data-i18n="modal_tripla_title">Simulador de Decisão Arquitetural na Restrição Tripla</h3>
+        <button class="modal-close" onclick="closeModal('modal-tripla')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p data-i18n="sim_intro">A Restrição Tripla representa o equilíbrio entre escopo, tempo e custo. Neste guia, qualidade e risco aparecem como efeitos da decisão arquitetural. Selecione um cenário para visualizar uma simulação didática de impacto; os valores de SPI e CPI são ilustrativos, não dados extraídos dos posts originais.</p>
+        <div class="scenario-grid">
+          <button class="scenario-card" data-scenario="ms" onclick="simulateScenario('ms')"><strong>Microsserviços</strong><span>Sem base operacional</span></button>
+          <button class="scenario-card" data-scenario="mfe" onclick="simulateScenario('mfe')"><strong>Micro Frontends</strong><span>Equipes em paralelo</span></button>
+          <button class="scenario-card" data-scenario="mvc" onclick="simulateScenario('mvc')"><strong>MVC / MVP</strong><span>Domínio separado</span></button>
+        </div>
+        <div id="sim-result" class="sim-box">
+          <p>Clique em um dos cenários acima para visualizar os indicadores de impacto (SPI, CPI e Risco).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-preview-1">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Preview • Microservice Prerequisites</h3>
+        <button class="modal-close" onclick="closeModal('modal-preview-1')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor:</strong> Martin Fowler (2014)</p>
+        <p><strong>Tríade Obrigatória:</strong> Provisionamento Rápido + Monitoramento Básico + Deploy Automatizado.</p>
+        <p><strong>Impacto Crítico:</strong> Sem cultura DevOps e automação de pipeline, o custo operacional (AC) cresce exponencialmente enquanto o Valor Agregado (EV) estagna.</p>
+        <a href="prerequisites.html" class="btn-primary">Ver Análise Completa</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-preview-2">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Preview • Micro Frontends</h3>
+        <button class="modal-close" onclick="closeModal('modal-preview-2')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor:</strong> Cam Jackson (2019)</p>
+        <p><strong>Conceito:</strong> Fatias verticais de negócio do banco de dados até a interface, gerenciadas por equipes autônomas com deploy independente.</p>
+        <p><strong>Impacto Crítico:</strong> Elimina gargalos de integração entre squads no cronograma, mas exige governança de Design System e controle de bundle.</p>
+        <a href="microfrontends.html" class="btn-primary">Ver Análise Completa</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-preview-3">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Preview • GUI Architectures</h3>
+        <button class="modal-close" onclick="closeModal('modal-preview-3')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Autor:</strong> Martin Fowler (2006)</p>
+        <p><strong>Conceito:</strong> Evolução desde Forms & Controls até MVC, Application Model e MVP (Humble View) para isolar estado de tela, sessão e registro.</p>
+        <p><strong>Impacto Crítico:</strong> Viabiliza testes automatizados rápidos sem dependência de interface gráfica, reduzindo retrabalho e melhorando a manutenibilidade.</p>
+        <a href="gui-archs.html" class="btn-primary">Ver Análise Completa</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Guia Web de Arquitetura de Software • Gestão de Projetos • SENAI Félix Guisard (2026)</p>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

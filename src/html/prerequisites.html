@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microservice Prerequisites - Guia de Arquitetura</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="prerequisites">
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">ArchGuide<span>.GP</span></a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav_home">Início</a>
+        <a href="prerequisites.html" class="active" data-i18n="nav_post1">1. Pré-requisitos MS</a>
+        <a href="microfrontends.html" data-i18n="nav_post2">2. Micro Frontends</a>
+        <a href="gui-archs.html" data-i18n="nav_post3">3. Arquiteturas GUI</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn-outline" id="langToggle" onclick="toggleLanguage()">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <span class="tag tag-blue">Eixo 1 • Microsserviços</span>
+      <h1>Microservice Prerequisites</h1>
+      <p class="subtitle">O que uma organização precisa dominar antes de adotar a arquitetura de microsserviços.</p>
+      <div class="header-actions">
+        <a href="https://martinfowler.com/bliki/MicroservicePrerequisites.html" target="_blank" rel="noopener noreferrer" class="btn-primary">Ler Post Original (Martin Fowler)</a>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2>Resumo da Ideia Central</h2>
+      <p>Martin Fowler destaca que, embora desenvolvedores apreciem trabalhar em unidades menores e modulares, a adoção de microsserviços transfere uma carga severa de complexidade para a operação. Em vez de gerenciar um único monólito bem definido, a equipe precisa operar um ecossistema distribuído de múltiplos serviços em produção. Por isso, não se deve adotar microsserviços sem antes possuir três competências operacionais de base:</p>
+      <div class="grid-3 mt-1">
+        <div class="mini-card">
+          <h4>1. Provisionamento Rápido</h4>
+          <p>Capacidade de provisionar um novo servidor ou ambiente em poucas horas por meio de automação e infraestrutura em nuvem.</p>
+        </div>
+        <div class="mini-card">
+          <h4>2. Monitoramento Básico</h4>
+          <p>Detecção imediata de anomalias técnicas (erros, latência, disponibilidade) e métricas de negócio (ex.: queda na taxa de pedidos) para permitir rollback rápido.</p>
+        </div>
+        <div class="mini-card">
+          <h4>3. Deploy Rápido</h4>
+          <p>Existência de um pipeline de implantação automatizado capaz de testar e publicar atualizações em produção em questão de horas.</p>
+        </div>
+      </div>
+      <p class="mt-1">Esses três pilares exigem uma transformação organizacional profunda: a consolidação de uma <strong>Cultura DevOps</strong> (colaboração estreita entre desenvolvimento e operação na resposta a incidentes e análise de causa raiz) e a transição para equipes orientadas a produto. Para escalar além de poucos serviços, tornam-se necessários rastreamento distribuído (tracing), Entrega Contínua (Continuous Delivery) completa e gestão eficiente de múltiplos repositórios.</p>
+      <div class="interactive-panel mt-1">
+        <p><strong>Aplicação prática:</strong> use o checklist para avaliar se a equipe possui a base operacional necessária antes de assumir a complexidade de microsserviços.</p>
+        <button class="btn-secondary" onclick="openModal('modal-ms-checklist')">Abrir checklist de prontidão</button>
+      </div>
+    </section>
+
+    <section class="section grid-2">
+      <div class="content-box border-green">
+        <h2>Vantagens</h2>
+        <ul class="styled-list">
+          <li><strong>Detecção precoce de falhas:</strong> Problemas que não aparecem em ambientes de homologação são identificados rapidamente em produção pelo monitoramento técnico e de negócio.</li>
+          <li><strong>Redução do tempo de recuperação (MTTR):</strong> Pipelines de deploy rápido viabilizam rollbacks ou correções imediatas sem intervenção manual extensa.</li>
+          <li><strong>Sinergia DevOps:</strong> Elimina silos entre quem desenvolve o código e quem mantém o ambiente em execução.</li>
+          <li><strong>Benefício direto até para monólitos:</strong> As mesmas competências de automação e monitoramento elevam a qualidade e a confiabilidade de arquiteturas monolíticas.</li>
+        </ul>
+      </div>
+
+      <div class="content-box border-red">
+        <h2>Desvantagens</h2>
+        <ul class="styled-list">
+          <li><strong>Pedágio inicial elevado (Microservice Premium):</strong> Exige investimento prévio pesado em automação, infraestrutura como código e observabilidade antes de colher benefícios.</li>
+          <li><strong>Complexidade operacional distribuída:</strong> Rastrear transações de negócio através de dezenas de serviços exige ferramentas avançadas de tracing e correlação de logs.</li>
+          <li><strong>Fricção no ambiente de desenvolvimento:</strong> Desenvolvedores precisam alternar constantemente entre múltiplos repositórios, bibliotecas e pipelines.</li>
+          <li><strong>Inviabilidade para equipes imaturas:</strong> Organizações sem disciplina de entrega contínua sofrem paralisia operacional ao fragmentar o sistema.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2>Registro de risco e pacote de trabalho</h2>
+      <p>O risco arquitetural pode ser convertido em um pacote de trabalho da EAP: automatizar infraestrutura, observabilidade e CI/CD antes da expansão do número de serviços.</p>
+      <button class="btn-outline" onclick="openModal('modal-ms-risco')">Ver dicionário da EAP e registro de risco</button>
+    </section>
+
+    <section class="section content-box">
+      <h2>Impacto na Gestão do Projeto</h2>
+      <div class="grid-2 mt-1">
+        <div class="mini-card">
+          <h4>Prazo (Cronograma e Caminho Crítico)</h4>
+          <p>Adiciona pacotes de trabalho obrigatórios no início do Gráfico de Gantt (configuração de infraestrutura em nuvem, CI/CD e observabilidade) com folga zero no caminho crítico. Se ignorados no planejamento inicial, causam atrasos severos na fase de integração.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Custo (Orçamento e EVM)</h4>
+          <p>Aumenta o Custo Planejado (PV) nas semanas iniciais devido à aquisição de serviços cloud, ferramentas de monitoramento e horas de engenharia DevOps. Contudo, protege o Índice de Desempenho de Custo (CPI) a médio prazo ao evitar retrabalho manual de deploy.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Equipe (Recursos e Comunicação)</h4>
+          <p>Demanda capacitação em Docker, Kubernetes, CI/CD e observabilidade (Prometheus/Grafana/OpenTelemetry). Exige reorganizar a equipe do modelo funcional tradicional para times multidisciplinares orientados a produto.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Riscos (ISO 31000)</h4>
+          <p><strong>Estrutura Causa → Evento → Impacto:</strong> Devido à ausência de monitoramento centralizado e deploy automatizado (causa), uma falha em cascata entre serviços não é isolada rapidamente em produção (evento), resultando em indisponibilidade crítica, perda financeira e desvio negativo no SPI e CPI (impacto).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modal-ms-checklist">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Simulador de Prontidão para Microsserviços</h3>
+        <button class="modal-close" onclick="closeModal('modal-ms-checklist')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Marque os pré-requisitos já atendidos pela sua equipe no projeto:</p>
+        <div class="progress-track" aria-label="Progresso da prontidão"><div id="ms-readiness-progress" class="progress-value"></div></div>
+        <div class="checklist">
+          <label><input type="checkbox" class="ms-check" onchange="evaluateMsReadiness()"> Provisionamento de novos servidores/containers em poucas horas</label>
+          <label><input type="checkbox" class="ms-check" onchange="evaluateMsReadiness()"> Monitoramento técnico (erros HTTP, latência, CPU/RAM) ativo</label>
+          <label><input type="checkbox" class="ms-check" onchange="evaluateMsReadiness()"> Monitoramento de métricas de negócio em tempo real</label>
+          <label><input type="checkbox" class="ms-check" onchange="evaluateMsReadiness()"> Pipeline de CI/CD automatizado com capacidade de rollback rápido</label>
+          <label><input type="checkbox" class="ms-check" onchange="evaluateMsReadiness()"> Cultura DevOps com atuação conjunta entre Devs e Operações</label>
+        </div>
+        <div id="ms-readiness-result" class="sim-box mt-1">
+          <strong>Diagnóstico:</strong> 0/5 atendidos. Risco Extremo: Mantenha a arquitetura Monolítica (MonolithFirst) até construir a base operacional.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-ms-risco">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Dicionário da EAP e Registro de Risco • Eixo 1</h3>
+        <button class="modal-close" onclick="closeModal('modal-ms-risco')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>Pacote de Trabalho EAP: 2.4 Infraestrutura de Observabilidade e CI/CD</h4>
+        <ul class="clean-list">
+          <li><strong>Descrição Técnica:</strong> Configurar pipeline automatizado de build/deploy e coleta de métricas com Prometheus e Grafana.</li>
+          <li><strong>Critério de Aceite:</strong> Deploy completo executado em menos de 15 minutos e alertas de erro disparando automaticamente.</li>
+          <li><strong>Atributos ISO/IEC 9126:</strong> Confiabilidade (Tolerância a falhas e Recuperabilidade) e Manutenibilidade (Analisabilidade).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Guia Web de Arquitetura de Software • Gestão de Projetos • SENAI Félix Guisard (2026)</p>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

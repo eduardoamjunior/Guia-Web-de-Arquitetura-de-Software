@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUI Architectures - Guia de Arquitetura</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-page="gui">
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand">ArchGuide<span>.GP</span></a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav_home">Início</a>
+        <a href="prerequisites.html" data-i18n="nav_post1">1. Pré-requisitos MS</a>
+        <a href="microfrontends.html" data-i18n="nav_post2">2. Micro Frontends</a>
+        <a href="gui-archs.html" class="active" data-i18n="nav_post3">3. Arquiteturas GUI</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn-outline" id="langToggle" onclick="toggleLanguage()">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <span class="tag tag-purple">Eixo 3 • Camadas e Execução</span>
+      <h1>GUI Architectures</h1>
+      <p class="subtitle">Evolução dos padrões arquiteturais de interface gráfica: Forms and Controls, MVC, Application Model e MVP.</p>
+      <div class="header-actions">
+        <a href="https://martinfowler.com/eaaDev/uiArchs.html" target="_blank" rel="noopener noreferrer" class="btn-primary">Ler Post Original (Martin Fowler)</a>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2>Resumo da Ideia Central</h2>
+      <p>Martin Fowler analisa a evolução histórica das arquiteturas de interface gráfica, enfatizando a necessidade de separar a lógica de apresentação da lógica de domínio (<strong>Separation of Concerns</strong>) e de sincronizar três tipos de estado: <em>Record State</em> (banco de dados), <em>Session State</em> (objetos em memória da sessão) e <em>Screen State</em> (componentes visuais na tela).</p>
+      <div class="grid-3 mt-1">
+        <div class="mini-card">
+          <h4>1. Forms and Controls</h4>
+          <p>O formulário organiza controles genéricos, utiliza <em>Data Binding</em> para sincronização básica e trata regras específicas em rotinas de eventos do próprio Form.</p>
+        </div>
+        <div class="mini-card">
+          <h4>2. Model-View-Controller (MVC)</h4>
+          <p>Divide responsabilidades entre <strong>Model</strong> (regras e estado de domínio sem conhecer a UI), <strong>View</strong> (exibição visual) e <strong>Controller</strong> (tratamento de entrada), sincronizados via padrão <em>Observer</em>.</p>
+        </div>
+        <div class="mini-card">
+          <h4>3. VisualWorks Application Model</h4>
+          <p>Uma evolução do MVC no VisualWorks que preserva a apresentação separada do domínio e organiza o estado da interface por meio de objetos de propriedade e sincronização por observadores.</p>
+        </div>
+        <div class="mini-card">
+          <h4>4. MVP e Humble View</h4>
+          <p>O <strong>Presenter</strong> atua como mediador ativo que lê o Model e comanda uma View passiva (<em>Humble View</em>), permitindo testar toda a lógica de apresentação sem renderizar widgets gráficos.</p>
+        </div>
+      </div>
+      <div class="interactive-panel mt-1">
+        <p><strong>Leitura visual:</strong> o simulador acompanha a regra pelo Model, Presenter e View, enquanto o explorador de estados mostra onde cada cópia dos dados vive e quem deve controlá-la.</p>
+        <div class="header-actions">
+          <button class="btn-secondary" onclick="openModal('modal-gui-fluxo')">Abrir simulador de fluxo</button>
+          <button class="btn-outline" onclick="openModal('modal-gui-estados')">Explorar estados da interface</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid-2">
+      <div class="content-box border-green">
+        <h2>Vantagens</h2>
+        <ul class="styled-list">
+          <li><strong>Alta testabilidade automatizada:</strong> Separar o Model e usar uma Humble View (MVP) permite validar regras de negócio e de apresentação com testes unitários rápidos.</li>
+          <li><strong>Reutilização do domínio:</strong> O mesmo Model pode atender múltiplas Views (interface web, aplicativo mobile, relatórios) sem duplicação de regras de cálculo.</li>
+          <li><strong>Manutenibilidade (ISO/IEC 9126):</strong> Alterações visuais na camada de apresentação não corrompem regras de negócio nem a persistência de dados.</li>
+        </ul>
+      </div>
+
+      <div class="content-box border-red">
+        <h2>Desvantagens</h2>
+        <ul class="styled-list">
+          <li><strong>Sobrecarga estrutural em telas simples:</strong> Para telas puramente cadastrais (CRUD simples), padrões avançados adicionam classes e interfaces desnecessárias em comparação ao Forms and Controls.</li>
+          <li><strong>Difusão semântica do MVC:</strong> Diferentes frameworks e desenvolvedores interpretam o papel do Controller e do Model de maneiras conflitantes, gerando inconsistência arquitetural.</li>
+          <li><strong>Complexidade de sincronização:</strong> Gerenciar notificações por Observer em telas com dezenas de componentes interdependentes pode criar ciclos de atualização difíceis de depurar.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section content-box">
+      <h2>Impacto na Gestão do Projeto</h2>
+      <div class="grid-2 mt-1">
+        <div class="mini-card">
+          <h4>Prazo (Cronograma e Homologação)</h4>
+          <p>Embora exija maior disciplina no início da codificação, reduz drasticamente o tempo gasto na fase de Testes e Homologação do cronograma, pois defeitos de regra de negócio são capturados em testes unitários imediatos.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Custo (Redução de Retrabalho)</h4>
+          <p>Quando o cliente solicita uma nova interface (ex.: criar um App Mobile além da Loja Web na EAP), o custo de desenvolvimento cai porque a camada de domínio (Model) é reaproveitada integralmente.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Equipe (Divisão de Trabalho)</h4>
+          <p>Facilita a distribuição de tarefas na sprint: desenvolvedores focados em regras de domínio trabalham no Model/Presenter enquanto especialistas em UI desenvolvem a View sem conflitos de código.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Riscos (ISO 31000)</h4>
+          <p><strong>Estrutura Causa → Evento → Impacto:</strong> Devido à inserção de regras de cálculo diretamente nos eventos do formulário visual (causa), mudanças de layout exigidas pelo stakeholder quebram a lógica de negócio e impedem testes automatizados (evento), gerando regressões em produção e atraso na entrega do sprint (impacto).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modal-gui-fluxo">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3>Simulador Interativo: Cálculo de Variância (Exemplo de Fowler)</h3>
+        <button class="modal-close" onclick="closeModal('modal-gui-fluxo')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Altere os valores e acompanhe como a regra percorre o Model, o Presenter e a View.</p>
+        <div class="modal-layout">
+          <div class="modal-tabs">
+            <button class="modal-tab active" onclick="switchModalTab(this, 'gui-panel-simulador')">Simulador</button>
+            <button class="modal-tab" onclick="switchModalTab(this, 'gui-panel-fluxo')">Fluxo</button>
+          </div>
+          <div>
+            <section class="modal-panel active" id="gui-panel-simulador">
+              <div class="sim-form">
+                <label>Meta (Target): <input type="number" id="guiTarget" value="100" oninput="runGuiSimulation()"></label>
+                <label>Leitura (Actual): <input type="number" id="guiActual" value="85" oninput="runGuiSimulation()"></label>
+              </div>
+              <div id="gui-sim-output" class="sim-box mt-1"></div>
+            </section>
+            <section class="modal-panel" id="gui-panel-fluxo">
+              <div class="flow-map">
+                <div class="flow-node"><strong>Model</strong><span>Calcula a variância</span></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node"><strong>Presenter</strong><span>Interpreta o resultado</span></div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-node"><strong>View</strong><span>Exibe o estado</span></div>
+              </div>
+              <div class="sim-box"><strong>Teste a separação:</strong><p class="mt-1">A View recebe apenas o resultado pronto. A regra de comparação não precisa conhecer nenhum widget.</p></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-gui-estados">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3>Os Três Estados de Dados em Arquiteturas GUI</h3>
+        <button class="modal-close" onclick="closeModal('modal-gui-estados')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro">Selecione um estado para entender onde ele vive e quem deve controlá-lo.</p>
+        <div class="state-cards">
+          <button class="state-card active" onclick="showGuiState('record', this)"><strong>Record State</strong><span>Persistido no banco</span></button>
+          <button class="state-card" onclick="showGuiState('session', this)"><strong>Session State</strong><span>Memória da sessão</span></button>
+          <button class="state-card" onclick="showGuiState('screen', this)"><strong>Screen State</strong><span>Controles da tela</span></button>
+        </div>
+        <div id="gui-state-detail" class="sim-box mt-1"><strong>Record State</strong><p>É a fonte persistida e compartilhada. Alterações aqui precisam passar por regras do domínio antes de chegar à tela.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Guia Web de Arquitetura de Software • Gestão de Projetos • SENAI Félix Guisard (2026)</p>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
